@@ -12,6 +12,7 @@ const UserContext = createContext();
 
 export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState({});
+
   const signUp = (email, password) => {
     createUserWithEmailAndPassword(auth, email, password);
     return setDoc(doc(db, "users", email), {
@@ -21,7 +22,7 @@ export const AuthContextProvider = ({ children }) => {
   const signIn = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
-  const logOut = () => {
+  const logout = () => {
     return signOut(auth);
   };
   useEffect(() => {
@@ -34,7 +35,7 @@ export const AuthContextProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ signUp, signIn, logOut, user }}>
+    <UserContext.Provider value={{ signUp, signIn, logout, user }}>
       {children}
     </UserContext.Provider>
   );
